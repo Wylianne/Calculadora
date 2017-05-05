@@ -127,14 +127,32 @@ local function buttonCalcula(event)
 
             operacao, numero1 = "", ""
             visor.text = conta
-            playAudio("=")
-            
-
-        end
-        if (sound == 1) then
-            audioResultado(conta)
+            playAudio("=")        
+            if (sound == 1) then
+                audioResultado(conta)
+            end   
         end
     end
+end
+
+local function buttonCalcular()
+    numero1 = tonumber(numero1)
+    conta = tonumber(conta)
+    
+    if (operacao == "soma") then
+        conta = (numero1 + conta)
+    elseif (operacao == "subtracao") then
+        conta = (numero1 - conta)
+    elseif (operacao == "multiplicacao") then
+        conta = (numero1 * conta)
+    elseif (operacao == "divisao") then
+        conta = (numero1 / conta)
+    elseif (operacao == "percentual") then
+        conta = ((numero1/100) * conta)
+    end
+
+    operacao, numero1 = "", ""
+    visor.text = conta  
 end
 
 local function buttonC(event)
@@ -169,7 +187,7 @@ end
 local function buttonOperacao( event)
     if ( "ended" == event.phase ) then
         if ((operacao ~= "") and (numero1 ~= ""))then
-            buttonCalcula()
+            buttonCalcular()
         end
         if (String.len(conta) >= 1) then
             if (visor.text ~= "") then
